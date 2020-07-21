@@ -17,16 +17,27 @@ The commands in this lab must be run on each controller instance: `master-1`, an
 Download the official etcd release binaries from the [coreos/etcd](https://github.com/coreos/etcd) GitHub project:
 
 ```
-wget -q --show-progress --https-only --timestamping \
-  "https://github.com/coreos/etcd/releases/download/v3.3.9/etcd-v3.3.9-linux-amd64.tar.gz"
+ETCD_VER=v3.4.0
+
+# choose either URL
+GOOGLE_URL=https://storage.googleapis.com/etcd
+GITHUB_URL=https://github.com/etcd-io/etcd/releases/download
+DOWNLOAD_URL=${GOOGLE_URL}
+
+rm -f /tmp/etcd-${ETCD_VER}-linux-amd64.tar.gz
+rm -rf /tmp/etcd-download-test && mkdir -p /tmp/etcd-download-test
+
+curl -L ${DOWNLOAD_URL}/${ETCD_VER}/etcd-${ETCD_VER}-linux-amd64.tar.gz -o /tmp/etcd-${ETCD_VER}-linux-amd64.tar.gz
+tar xzvf /tmp/etcd-${ETCD_VER}-linux-amd64.tar.gz -C /tmp/etcd-download-test --strip-components=1
+rm -f /tmp/etcd-${ETCD_VER}-linux-amd64.tar.gz
 ```
 
 Extract and install the `etcd` server and the `etcdctl` command line utility:
 
 ```
 {
-  tar -xvf etcd-v3.3.9-linux-amd64.tar.gz
-  sudo mv etcd-v3.3.9-linux-amd64/etcd* /usr/local/bin/
+  tar -xvf etcd-v3.4.10-linux-amd64.tar.gz
+  sudo mv etcd-v3.4.10-linux-amd64/etcd/* /usr/local/bin/
 }
 ```
 
@@ -35,6 +46,7 @@ Extract and install the `etcd` server and the `etcdctl` command line utility:
 ```
 {
   sudo mkdir -p /etc/etcd /var/lib/etcd
+  sudo chmod 0700 -R  /var/lib/etcd
   sudo cp ca.crt etcd-server.key etcd-server.crt /etc/etcd/
 }
 ```

@@ -90,7 +90,7 @@ worker-1.kubeconfig
 ### Copy certificates, private keys and kubeconfig files to the worker node:
 On master-1:
 ```
-master-1$ scp ca.crt worker-1.crt worker-1.key worker-1.kubeconfig worker-1:~/
+master-1$ scp kube-proxy.kubeconfig ca.crt worker-1.crt worker-1.key worker-1.kubeconfig worker-1:~/
 ```
 
 ### Download and Install Worker Binaries
@@ -100,9 +100,9 @@ Going forward all activities are to be done on the `worker-1` node.
 On worker-1:
 ```
 worker-1$ wget -q --show-progress --https-only --timestamping \
-  https://storage.googleapis.com/kubernetes-release/release/v1.13.0/bin/linux/amd64/kubectl \
-  https://storage.googleapis.com/kubernetes-release/release/v1.13.0/bin/linux/amd64/kube-proxy \
-  https://storage.googleapis.com/kubernetes-release/release/v1.13.0/bin/linux/amd64/kubelet
+  https://storage.googleapis.com/kubernetes-release/release/v1.18.6/bin/linux/amd64/kubectl \
+  https://storage.googleapis.com/kubernetes-release/release/v1.18.6/bin/linux/amd64/kube-proxy \
+  https://storage.googleapis.com/kubernetes-release/release/v1.13.6/bin/linux/amd64/kubelet
 ```
 
 Reference: https://kubernetes.io/docs/setup/release/#node-binaries
